@@ -17,7 +17,7 @@ class SplashContent extends StatelessWidget {
       children: [
         Spacer(flex: 2),
         Text(
-          "FlyBuy",
+          "HustleHub",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,

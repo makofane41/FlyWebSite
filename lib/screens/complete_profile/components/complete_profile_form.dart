@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flybuy/screens/otp/otp_screen.dart';
+import 'package:flybuy/screens/register_success/register_success_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -24,13 +25,9 @@ class _SignFormState extends State<CompleteProfileForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildLastNameFormField(),
+          buildAddressFormField(context),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildAddressFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           DefaultButton(
             text: "Continue",
@@ -40,7 +37,7 @@ class _SignFormState extends State<CompleteProfileForm> {
                 print(this.phone);
                 Navigator.pushNamed(
                   context,
-                  OTPScreen.routeName,
+                  RegisterSuccessScreen.routeName,
                   arguments: this.phone,
                 );
               }
@@ -49,50 +46,6 @@ class _SignFormState extends State<CompleteProfileForm> {
           ),
         ],
       ),
-    );
-  }
-
-  TextFormField buildFirstNameFormField() {
-    return TextFormField(
-      onSaved: (newName) => this.firstName = newName,
-      onChanged: (name) {
-        if (firstSubmit) _formKey.currentState.validate();
-      },
-      validator: (name) {
-        if (name.isEmpty) {
-          return kFirstNamelNullError;
-        }
-
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
-        suffixIcon: CustomSuffixIcon(iconPath: "assets/icons/User Icon.svg"),
-      ),
-      keyboardType: TextInputType.name,
-    );
-  }
-
-  TextFormField buildLastNameFormField() {
-    return TextFormField(
-      onSaved: (newName) => this.lastName = newName,
-      onChanged: (name) {
-        if (firstSubmit) _formKey.currentState.validate();
-      },
-      validator: (name) {
-        if (name.isEmpty) {
-          return kLastNamelNullError;
-        }
-
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
-        suffixIcon: CustomSuffixIcon(iconPath: "assets/icons/User Icon.svg"),
-      ),
-      keyboardType: TextInputType.name,
     );
   }
 
@@ -118,7 +71,7 @@ class _SignFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildAddressFormField() {
+  TextFormField buildAddressFormField(BuildContext context) {
     return TextFormField(
       onSaved: (newAddress) => this.address = newAddress,
       onChanged: (address) {
@@ -134,10 +87,30 @@ class _SignFormState extends State<CompleteProfileForm> {
       decoration: InputDecoration(
         labelText: "Address",
         hintText: "Enter your address",
-        suffixIcon:
-            CustomSuffixIcon(iconPath: "assets/icons/Location point.svg"),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.location_on),
+          onPressed: () async {
+            final selectedLocation = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LocationPicker()),
+            );
+            if (selectedLocation != null) {
+              setState(() {
+                address = selectedLocation;
+              });
+            }
+          },
+        ),
       ),
       keyboardType: TextInputType.streetAddress,
     );
+  }
+}
+
+class LocationPicker extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Implement your location picker UI here
+    return Container();
   }
 }

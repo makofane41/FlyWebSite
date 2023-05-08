@@ -4,7 +4,6 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 import './forgot_password_form.dart';
 
-
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class Body extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "Please enter your email and we will send/nyou a link to return to your account",
+                  "Please enter your email and we will send/ you OTP to reset your Password",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),

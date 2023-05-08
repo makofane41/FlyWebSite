@@ -8,12 +8,12 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final phone = ModalRoute.of(context).settings.arguments;
+    final email = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text("OTP Verification"),
       ),
-      body: Body(phone),
+      body: Body(email),
     );
   }
 }

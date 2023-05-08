@@ -7,10 +7,9 @@ import '../../../size_config.dart';
 // ignore: must_be_immutable
 class Categories extends StatelessWidget {
   List<Map<String, dynamic>> categories = [
-    {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-    {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-    {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-    {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
+    {"icon": "assets/icons/Flash Icon.svg", "text": "Products"},
+    {"icon": "assets/icons/Bill Icon.svg", "text": "Services"},
+    {"icon": "assets/icons/Game Icon.svg", "text": "Events"},
     {"icon": "assets/icons/ellipsis.svg", "text": "More"},
   ];
 

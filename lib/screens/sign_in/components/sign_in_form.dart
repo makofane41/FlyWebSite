@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../../../components/default_button.dart';
 import '../../../components/custom_suffix_icon.dart';
+import '../../home/home_screen.dart';
 import '../../login_success/login_success_screen.dart';
 import '../../forgot_password/forgot_password_screen.dart';
+import 'package:http/http.dart' as http;
 
 class SignForm extends StatefulWidget {
   @override
@@ -20,6 +24,53 @@ class _SignFormState extends State<SignForm> {
 
   bool firstSubmit = false;
   bool remember = false;
+
+  Future<void> _login() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        });
+    final response = await http.post(
+      Uri.parse('https://prod-api.hustleshub.com/user/auth/login'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // Login successful, do something
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 5),
+            backgroundColor: Color.fromARGB(255, 7, 67, 233),
+            content: Text("Welcome to Hustle Hub")),
+      );
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ));
+    } else {
+      // Login failed, display error message
+      final error = jsonDecode(response.body)['message'];
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 5),
+            backgroundColor: Color.fromARGB(255, 224, 8, 8),
+            content: Text(error)),
+      );
+    }
+
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +110,7 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                _login();
               }
               firstSubmit = true;
             },

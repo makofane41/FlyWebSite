@@ -13,7 +13,7 @@ class SpecialOffers extends StatelessWidget {
     return Column(
       children: [
         SectionTitle(
-          title: "Special for you",
+          title: "Special for your Location",
           press: () {},
         ),
         SizedBox(height: getProportionateScreenHeight(20)),
@@ -30,6 +30,13 @@ class SpecialOffers extends StatelessWidget {
               SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",
                 text: "Fashion",
+                noOfBrands: 15,
+                press: () {},
+              ),
+              SizedBox(width: getProportionateScreenWidth(20)),
+              SpecialOfferCard(
+                image: "assets/images/Image Banner 3.png",
+                text: "Banner",
                 noOfBrands: 15,
                 press: () {},
               ),

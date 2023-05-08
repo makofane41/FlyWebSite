@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flybuy/screens/register_success/register_success_screen.dart';
 
 import './screens/otp/otp_screen.dart';
 import './screens/cart/cart_screen.dart';
@@ -24,4 +25,5 @@ Map<String, WidgetBuilder> routes = {
   ForgotPasswordScreen.routeName: (ctx) => ForgotPasswordScreen(),
   ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
   CompleteProfileScreen.routeName: (ctx) => CompleteProfileScreen(),
+  RegisterSuccessScreen.routeName: (ctx) => RegisterSuccessScreen()
 };
